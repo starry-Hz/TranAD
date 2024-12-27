@@ -1,0 +1,33 @@
+nohup: ignoring input
+start: 2024-12-26 11:34:01
+[92mCreating new model: TranAD[0m
+  0%|          | 0/5 [00:00<?, ?it/s]                                       0%|          | 0/5 [00:31<?, ?it/s] 20%|██        | 1/5 [00:31<02:05, 31.31s/it]                                              20%|██        | 1/5 [01:02<02:05, 31.31s/it] 40%|████      | 2/5 [01:02<01:33, 31.07s/it]                                              40%|████      | 2/5 [01:32<01:33, 31.07s/it] 60%|██████    | 3/5 [01:32<01:01, 30.69s/it]                                              60%|██████    | 3/5 [02:02<01:01, 30.69s/it] 80%|████████  | 4/5 [02:02<00:30, 30.51s/it]                                              80%|████████  | 4/5 [02:33<00:30, 30.51s/it]100%|██████████| 5/5 [02:33<00:00, 30.48s/it]100%|██████████| 5/5 [02:33<00:00, 30.62s/it]
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3441: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/_methods.py:189: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Epoch 0,	L1 = 0.009583383840231925
+Epoch 1,	L1 = 0.004926856097807448
+Epoch 2,	L1 = 0.0030695289944644975
+Epoch 3,	L1 = 0.002447477583622128
+Epoch 4,	L1 = 0.0020608975087425437
+training phase done
+[95mTesting TranAD on PSM[0m
+test phase done
+plotting done
+{'FN': 0,
+ 'FP': 12256,
+ 'Hit@100%': nan,
+ 'Hit@150%': nan,
+ 'NDCG@100%': nan,
+ 'NDCG@150%': nan,
+ 'ROC/AUC': 0.5000815793767336,
+ 'TN': 2,
+ 'TP': 5310,
+ 'f1': 0.46423843515437624,
+ 'precision': 0.3022885117258975,
+ 'recall': 0.9999999981167609,
+ 'threshold': 0.01195735561425126}
+scores done
+end: 2024-12-26 11:36:52
+time: 0:02:51

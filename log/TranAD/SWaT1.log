@@ -1,0 +1,261 @@
+nohup: ignoring input
+start: 2024-12-25 20:21:39
+[92mCreating new model: TranAD[0m
+  0%|          | 0/5 [00:00<?, ?it/s]                                     Epoch 0,	L1 = 0.09088630204063301
+  0%|          | 0/5 [00:06<?, ?it/s] 20%|██        | 1/5 [00:06<00:25,  6.35s/it]                                             Epoch 1,	L1 = 0.095154061467383
+ 20%|██        | 1/5 [00:13<00:25,  6.35s/it] 40%|████      | 2/5 [00:13<00:20,  6.68s/it]                                             Epoch 2,	L1 = 0.09583568494412177
+ 40%|████      | 2/5 [00:19<00:20,  6.68s/it] 60%|██████    | 3/5 [00:19<00:13,  6.59s/it]                                             Epoch 3,	L1 = 0.09599264585892313
+ 60%|██████    | 3/5 [00:25<00:13,  6.59s/it] 80%|████████  | 4/5 [00:25<00:06,  6.42s/it]                                             Epoch 4,	L1 = 0.09612284400404385
+ 80%|████████  | 4/5 [00:32<00:06,  6.42s/it]100%|██████████| 5/5 [00:32<00:00,  6.34s/it]100%|██████████| 5/5 [00:32<00:00,  6.42s/it]
+training phase done
+[95mTesting TranAD on SWaT1[0m
+test phase done
+plotting done
+preds 0 done
+2424
+7499
+score 0 done,loss.shape: 51
+preds 1 done
+1779
+7499
+score 1 done,loss.shape: 51
+preds 2 done
+44
+7499
+score 2 done,loss.shape: 51
+preds 3 done
+2297
+7499
+score 3 done,loss.shape: 51
+preds 4 done
+52
+7499
+score 4 done,loss.shape: 51
+preds 5 done
+560
+7499
+score 5 done,loss.shape: 51
+preds 6 done
+2906
+7499
+score 6 done,loss.shape: 51
+preds 7 done
+10
+7499
+score 7 done,loss.shape: 51
+preds 8 done
+9
+7499
+score 8 done,loss.shape: 51
+preds 9 done
+31
+7499
+score 9 done,loss.shape: 51
+preds 10 done
+910
+7499
+score 10 done,loss.shape: 51
+preds 11 done
+preds 12 done
+2326
+7499
+score 12 done,loss.shape: 51
+preds 13 done
+1
+7499
+score 13 done,loss.shape: 51
+preds 14 done
+2323
+7499
+score 14 done,loss.shape: 51
+preds 15 done
+1
+7499
+score 15 done,loss.shape: 51
+preds 16 done
+989
+7499
+score 16 done,loss.shape: 51
+preds 17 done
+1437
+7499
+score 17 done,loss.shape: 51
+preds 18 done
+19
+7499
+score 18 done,loss.shape: 51
+preds 19 done
+23
+7499
+score 19 done,loss.shape: 51
+preds 20 done
+62
+7499
+score 20 done,loss.shape: 51
+preds 21 done
+215
+7499
+score 21 done,loss.shape: 51
+preds 22 done
+71
+7499
+score 22 done,loss.shape: 51
+preds 23 done
+preds 24 done
+1698
+7499
+score 24 done,loss.shape: 51
+preds 25 done
+4546
+7499
+score 25 done,loss.shape: 51
+preds 26 done
+724
+7499
+score 26 done,loss.shape: 51
+preds 27 done
+574
+7499
+score 27 done,loss.shape: 51
+preds 28 done
+556
+7499
+score 28 done,loss.shape: 51
+preds 29 done
+preds 30 done
+535
+7499
+score 30 done,loss.shape: 51
+preds 31 done
+preds 32 done
+preds 33 done
+556
+7499
+score 33 done,loss.shape: 51
+preds 34 done
+7025
+7499
+score 34 done,loss.shape: 51
+preds 35 done
+4582
+7499
+score 35 done,loss.shape: 51
+preds 36 done
+14
+7499
+score 36 done,loss.shape: 51
+preds 37 done
+70
+7499
+score 37 done,loss.shape: 51
+preds 38 done
+563
+7499
+score 38 done,loss.shape: 51
+preds 39 done
+557
+7499
+score 39 done,loss.shape: 51
+preds 40 done
+563
+7499
+score 40 done,loss.shape: 51
+preds 41 done
+583
+7499
+score 41 done,loss.shape: 51
+preds 42 done
+556
+7499
+score 42 done,loss.shape: 51
+preds 43 done
+preds 44 done
+563
+7499
+score 44 done,loss.shape: 51
+preds 45 done
+564
+7499
+score 45 done,loss.shape: 51
+preds 46 done
+563
+7499
+score 46 done,loss.shape: 51
+preds 47 done
+69
+7499
+score 47 done,loss.shape: 51
+preds 48 done
+preds 49 done
+66
+7499
+score 49 done,loss.shape: 51
+preds 50 done
+595
+7499
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3441: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/_methods.py:189: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+          f1  precision    recall  ...          FN  ROC/AUC     threshold
+0   0.420741   0.286196  0.794053  ...  186.981302      0.0  9.799937e-01
+1   0.491587   0.367210  0.743392  ...  232.976702      0.0  6.054939e-01
+2   0.000000   0.000000  0.000000  ...  907.909209      0.0  4.356284e-01
+3   0.464237   0.319603  0.848018  ...  137.986201      0.0  1.893190e-02
+4   0.105917   0.927180  0.056167  ...  856.914309      0.0  4.749838e-02
+5   0.000000   0.000000  0.000000  ...  907.909209      0.0  1.046292e+00
+6   0.093608   0.061379  0.197137  ...  728.927107      0.0  7.968301e-03
+7   0.000000   0.000000  0.000000  ...  907.909209      0.0  9.350587e-01
+8   0.090430   0.999900  0.047357  ...  864.913509      0.0  9.932588e-01
+9   0.031512   0.340875  0.016520  ...  892.910709      0.0  3.329671e-01
+10  0.000000   0.000000  0.000000  ...  907.909209      0.0  2.204006e+00
+11  0.462283   0.317292  0.851322  ...  134.986501      0.0  1.895858e-02
+12  0.000000   0.000000  0.000000  ...  907.909209      0.0  1.302345e+00
+13  0.461040   0.316580  0.848018  ...  137.986201      0.0  1.895131e-02
+14  0.000000   0.000000  0.000000  ...  907.909209      0.0  1.302345e+00
+15  0.057630   0.930941  0.029736  ...  880.911909      0.0  3.314582e-01
+16  0.553436   0.444772  0.732379  ...  242.975702      0.0  9.997835e-01
+17  0.059764   0.965420  0.030837  ...  879.912009      0.0  5.658761e-01
+18  0.082558   0.655672  0.044053  ...  867.913209      0.0  3.674473e-01
+19  0.820534   0.924046  0.737885  ...  237.976202      0.0  3.323604e-01
+20  0.184506   0.365976  0.123348  ...  795.920408      0.0  2.932735e-01
+21  0.090193   0.410673  0.050661  ...  861.913809      0.0  3.128584e-01
+22  0.573876   0.428141  0.870044  ...  117.988201      0.0  1.688406e-02
+23  0.293820   0.175004  0.915198  ...   76.992301      0.0  2.795168e-01
+24  0.736063   0.785190  0.692731  ...  278.972103      0.0  6.122962e-03
+25  0.809858   0.990347  0.685022  ...  285.971403      0.0  1.076193e-01
+26  0.790201   0.985099  0.659692  ...  308.969103      0.0  8.883972e-01
+27  0.804168   0.996643  0.674009  ...  295.970403      0.0  8.229002e-02
+28  0.811933   0.991952  0.687225  ...  283.971603      0.0  2.164933e-01
+29  0.216918   0.121655  1.000000  ...    0.000000      0.0  5.108186e-02
+30  0.290231   0.173604  0.884361  ...  104.989501      0.0  5.930777e-03
+31  0.000000   0.000000  0.000000  ...  907.909209      0.0  5.851012e-01
+32  0.000000   0.000000  0.000000  ...  907.909209      0.0  1.786765e+25
+33  0.793867   0.996573  0.659692  ...  308.969103      0.0  1.580816e-01
+34  0.793867   0.996573  0.659692  ...  308.969103      0.0  1.839529e-01
+35  0.817555   0.990497  0.696035  ...  275.972403      0.0  1.689174e-01
+36  0.817555   0.990497  0.696035  ...  275.972403      0.0  1.782490e-01
+37  0.811933   0.991952  0.687225  ...  283.971603      0.0  2.164933e-01
+38  0.793867   0.996573  0.659692  ...  308.969103      0.0  1.728722e-01
+39  0.817555   0.990497  0.696035  ...  275.972403      0.0  5.634210e-01
+40  0.793867   0.996573  0.659692  ...  308.969103      0.0  1.796270e-01
+41  0.107629   0.482408  0.060573  ...  852.914709      0.0  9.028010e-01
+42  0.061936   0.333300  0.034141  ...  876.912309      0.0  1.755209e-01
+
+[43 rows x 9 columns]
+{'FN': 287,
+ 'FP': 25,
+ 'Hit@100%': nan,
+ 'Hit@150%': nan,
+ 'NDCG@100%': nan,
+ 'NDCG@150%': nan,
+ 'ROC/AUC': 0.840063826857743,
+ 'TN': 6566,
+ 'TP': 621,
+ 'f1': 0.7992229310962768,
+ 'precision': 0.9613002947167137,
+ 'recall': 0.6839206973136487,
+ 'threshold': 0.20636091648858193}
+scores done
+end: 2024-12-25 20:22:25
+time: 0:00:46

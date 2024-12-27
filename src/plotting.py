@@ -21,17 +21,22 @@ def plotter(name, y_true, y_pred, ascore, labels):
 	os.makedirs(os.path.join('plots', name), exist_ok=True)
 	pdf = PdfPages(f'plots/{name}/output.pdf')
 	for dim in range(y_true.shape[1]):
+		# y_t, y_p, l, a_s 表示真实值，预测值，标签和异常分数
 		y_t, y_p, l, a_s = y_true[:, dim], y_pred[:, dim], labels[:, dim], ascore[:, dim]
+		# 创建一个包含两个子图的图表
 		fig, (ax1, ax2) = plt.subplots(2, 1, sharex=True)
 		ax1.set_ylabel('Value')
 		ax1.set_title(f'Dimension = {dim}')
 		# if dim == 0: np.save(f'true{dim}.npy', y_t); np.save(f'pred{dim}.npy', y_p); np.save(f'ascore{dim}.npy', a_s)
+		# 平滑时间序列，即平滑真实值和预测值,y_t颜色是蓝色
 		ax1.plot(smooth(y_t), linewidth=0.2, label='True')
 		ax1.plot(smooth(y_p), '-', alpha=0.6, linewidth=0.3, label='Predicted')
+		# 创建一个共享x轴但独立y轴的第二个y轴，用于绘制标签
 		ax3 = ax1.twinx()
 		ax3.plot(l, '--', linewidth=0.3, alpha=0.5)
 		ax3.fill_between(np.arange(l.shape[0]), l, color='blue', alpha=0.3)
 		if dim == 0: ax1.legend(ncol=2, bbox_to_anchor=(0.6, 1.02))
+		# 绘制平滑后的异常分数，放在第二个子图中
 		ax2.plot(smooth(a_s), linewidth=0.2, color='g')
 		ax2.set_xlabel('Timestamp')
 		ax2.set_ylabel('Anomaly Score')

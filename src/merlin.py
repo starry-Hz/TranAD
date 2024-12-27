@@ -46,8 +46,11 @@ def csa(t, L, r):
 def check(t, pred):
 	labels = [];
 	for i in range(t.shape[1]):
+		# 定义一个长度为cvp的滑动窗口，计算每个时间点的分数
+		# new 是一个长度为t.shape[0]的数组，表示每个时间点的分数，通过计算每个时间点的分数与原始时间序列的差值
 		new = np.convolve(t[:, i], np.ones(cvp)/cvp, mode='same')
 		scores = np.abs(new - t[:,i])
+		# 计算 scores 的百分位数，percentile_merlin 是预定义的百分位阈值。
 		labels.append((scores > np.percentile(scores, percentile_merlin)) + 0)
 	labels = np.array(labels).transpose()
 	return (np.sum(labels, axis=1) >= 1) + 0, labels

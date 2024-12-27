@@ -1,0 +1,76 @@
+nohup: ignoring input
+start: 2024-12-26 23:27:34
+[92mCreating new model: TranAD[0m
+  0%|          | 0/5 [00:00<?, ?it/s]                                       0%|          | 0/5 [00:07<?, ?it/s] 20%|██        | 1/5 [00:07<00:31,  7.75s/it]                                              20%|██        | 1/5 [00:14<00:31,  7.75s/it] 40%|████      | 2/5 [00:14<00:22,  7.37s/it]                                              40%|████      | 2/5 [00:21<00:22,  7.37s/it] 60%|██████    | 3/5 [00:21<00:14,  7.04s/it]                                              60%|██████    | 3/5 [00:28<00:14,  7.04s/it] 80%|████████  | 4/5 [00:28<00:06,  6.94s/it]                                              80%|████████  | 4/5 [00:34<00:06,  6.94s/it]100%|██████████| 5/5 [00:34<00:00,  6.86s/it]100%|██████████| 5/5 [00:35<00:00,  7.00s/it]
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3441: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/_methods.py:189: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Epoch 0,	L1 = 0.016940898373137583
+Epoch 1,	L1 = 0.008462941294041059
+Epoch 2,	L1 = 0.004939937377193353
+Epoch 3,	L1 = 0.0037002610680439627
+Epoch 4,	L1 = 0.0032135800078053603
+training phase done
+[95mTesting TranAD on SWaT1[0m
+test phase done
+plotting done
+i: 0
+i: 1
+i: 2
+i: 3
+i: 4
+i: 5
+i: 6
+i: 7
+i: 8
+i: 9
+i: 10
+i: 12
+i: 13
+i: 14
+i: 15
+i: 16
+i: 17
+i: 18
+i: 19
+i: 20
+i: 21
+i: 22
+i: 24
+i: 25
+i: 26
+i: 27
+i: 28
+i: 30
+i: 33
+i: 34
+i: 35
+i: 36
+i: 37
+i: 38
+i: 39
+i: 40
+i: 41
+i: 42
+i: 44
+i: 45
+i: 46
+i: 47
+i: 49
+{'FN': 195,
+ 'FP': 50,
+ 'Hit@100%': nan,
+ 'Hit@150%': nan,
+ 'NDCG@100%': nan,
+ 'NDCG@150%': nan,
+ 'ROC/AUC': 0.8888280942441201,
+ 'TN': 6541,
+ 'TP': 713,
+ 'f1': 0.8533762363207794,
+ 'precision': 0.9344691882769438,
+ 'recall': 0.7852422821008559,
+ 'threshold': 0.028774932563336186}
+scores done
+end: 2024-12-26 23:28:23
+time: 0:00:49

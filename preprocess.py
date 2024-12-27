@@ -43,8 +43,21 @@ def normalize3(a, min_a = None, max_a = None):
 	return (a - min_a) / (max_a - min_a + 0.0001), min_a, max_a
 
 def convertNumpy(df):
+	# 每隔10取一行数据，从第四列开始取值
 	x = df[df.columns[3:]].values[::10, :]
-	return (x - x.min(0)) / (x.ptp(0) + 1e-4)
+	return (x - x.min(0)) / (x.ptp(0) + 1e-4)	# 归一化，x.ptp(0) = x.max(0) - x.min(0)，添加1e-4防止除0
+
+def convertNumpy_4(df):
+    batch_num = 4
+    # Select every 10th row starting from the 4th row
+    df = df.iloc[batch_num::10, :]
+    # Select columns starting from the 4th column
+    x = df.iloc[:, 3:]
+    min_vals = x.min(axis=0)
+    max_vals = x.max(axis=0)
+    batch_data = (x - min_vals) / (max_vals - min_vals + 1e-4)
+    print(f"batch_data.shape: {batch_data.shape}")
+    return batch_data  # Normalized data
 
 def load_data(dataset):
 	folder = os.path.join(output_folder, dataset)
@@ -68,6 +81,8 @@ def load_data(dataset):
 	elif dataset == 'SMD':
 		dataset_folder = 'data/SMD'
 		file_list = os.listdir(os.path.join(dataset_folder, "train"))
+		file_list = ['machine-1-1.txt','machine-1-6.txt',  'machine-2-1.txt', 'machine-2-2.txt','machine-2-3.txt', 'machine-2-4.txt','machine-3-3.txt','machine-3-8.txt', 'machine-3-10.txt',]
+		print(file_list)
 		for filename in file_list:
 			if filename.endswith('.txt'):
 				load_and_save('train', filename, filename.strip('.txt'), dataset_folder)
@@ -133,6 +148,7 @@ def load_data(dataset):
 		train, min_a, max_a = normalize2(df_train.values)
 		test, _, _ = normalize2(df_test.values, min_a, max_a)
 		labels = pd.read_json(file, lines=True)[['noti']][7000:12000] + 0
+		print(train.shape, test.shape, labels.shape)
 		for file in ['train', 'test', 'labels']:
 			np.save(os.path.join(folder, f'{file}.npy'), eval(file))
 	elif dataset in ['SMAP', 'MSL']:
@@ -148,27 +164,34 @@ def load_data(dataset):
 			test, _, _ = normalize3(test, min_a, max_a)
 			np.save(f'{folder}/{fn}_train.npy', train)
 			np.save(f'{folder}/{fn}_test.npy', test)
+			# 初始化一个与test相同大小的全0数组,表示每个时间步的数据是否为异常
 			labels = np.zeros(test.shape)
 			indices = values[values['chan_id'] == fn]['anomaly_sequences'].values[0]
+			print(indices)	# [[1950, 2486]]
 			indices = indices.replace(']', '').replace('[', '').split(', ')
+			print(indices)	# ['1950', '2486']
 			indices = [int(i) for i in indices]
 			for i in range(0, len(indices), 2):
 				labels[indices[i]:indices[i+1], :] = 1
 			np.save(f'{folder}/{fn}_labels.npy', labels)
+			print(f"{dataset} {fn} {train.shape} {test.shape} {labels.shape}")
 	elif dataset == 'WADI':
 		dataset_folder = 'data/WADI'
 		ls = pd.read_csv(os.path.join(dataset_folder, 'WADI_attacklabels.csv'))
+		# 训练数据,跳过前1000行,读取20万行
 		train = pd.read_csv(os.path.join(dataset_folder, 'WADI_14days.csv'), skiprows=1000, nrows=2e5)
 		test = pd.read_csv(os.path.join(dataset_folder, 'WADI_attackdata.csv'))
-		train.dropna(how='all', inplace=True); test.dropna(how='all', inplace=True)
-		train.fillna(0, inplace=True); test.fillna(0, inplace=True)
+		train.dropna(how='all', inplace=True); test.dropna(how='all', inplace=True)	# 删除全为NaN的行
+		train.fillna(0, inplace=True); test.fillna(0, inplace=True)	# 将NaN替换为0
 		test['Time'] = test['Time'].astype(str)
 		test['Time'] = pd.to_datetime(test['Date'] + ' ' + test['Time'])
-		labels = test.copy(deep = True)
+		labels = test.copy(deep = True)	# 深拷贝,创建 labels
+		# 将除前三列外的所有值设置为0
 		for i in test.columns.tolist()[3:]: labels[i] = 0
 		for i in ['Start Time', 'End Time']: 
 			ls[i] = ls[i].astype(str)
 			ls[i] = pd.to_datetime(ls['Date'] + ' ' + ls[i])
+		# 遍历攻击标签的每一行,获取受影响的传感器列名列表,遍历测试数据的列名,找到与受影响传感器列名匹配的列名,将对应列名的值设置为1
 		for index, row in ls.iterrows():
 			to_match = row['Affected'].split(', ')
 			matched = []
@@ -178,8 +201,25 @@ def load_data(dataset):
 						matched.append(i); break			
 			st, et = str(row['Start Time']), str(row['End Time'])
 			labels.loc[(labels['Time'] >= st) & (labels['Time'] <= et), matched] = 1
-		train, test, labels = convertNumpy(train), convertNumpy(test), convertNumpy(labels)
-		print(train.shape, test.shape, labels.shape)
+		train, test, labels = convertNumpy(train), convertNumpy_4(test), convertNumpy_4(labels)
+		print(train.shape, test.shape, labels.shape)	# (20000, 127) (17281, 127) (17281, 127)
+		for file in ['train', 'test', 'labels']:
+			np.save(os.path.join(folder, f'{file}.npy'), eval(file))
+	elif dataset == 'WADI1':
+		dataset_folder = 'data/WADI/2019'
+		# 训练数据,跳过前1000行,读取20万行
+		train = pd.read_csv(os.path.join(dataset_folder, 'WADI_14days_new.csv'), header=1,index_col=0,skiprows=1000, nrows=2e5)
+		
+		test = pd.read_csv(os.path.join(dataset_folder, 'WADI_attackdataLABLE.csv')).iloc[:172800,2:]
+		test['Attack LABLE (1:No Attack, -1:Attack)'] = test['Attack LABLE (1:No Attack, -1:Attack)'].replace({1: 0, -1: 1})
+		train.dropna(how='all', inplace=True); test.dropna(how='all', inplace=True)	# 删除全为NaN的行
+		train.fillna(0, inplace=True); test.fillna(0, inplace=True)	# 将NaN替换为0
+		test['Time'] = test['Time'].astype(str)
+		test['Time'] = pd.to_datetime(test['Date'] + ' ' + test['Time'])
+		# test的最后一列为label
+		labels = test.iloc[:,-1].values
+		train, test, labels = convertNumpy(train), convertNumpy_4(test), convertNumpy_4(labels)
+		print(train.shape, test.shape, labels.shape)	# (20000, 127) (17281, 127) (17281, 127)
 		for file in ['train', 'test', 'labels']:
 			np.save(os.path.join(folder, f'{file}.npy'), eval(file))
 	elif dataset == 'MBA':

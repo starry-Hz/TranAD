@@ -509,7 +509,11 @@ class TranAD(nn.Module):
 	def encode(self, src, c, tgt):
 		src = torch.cat((src, c), dim=2)
 		src = src * math.sqrt(self.n_feats)
+		# 打印 src 的形状
+		# print("Before pos_encoder, src.shape:", src.shape)
 		src = self.pos_encoder(src)
+		 # 打印 pos_encoder 输出后的形状
+		# print("After pos_encoder, src.shape:", src.shape)
 		memory = self.transformer_encoder(src)
 		tgt = tgt.repeat(1, 1, 2)
 		return tgt, memory

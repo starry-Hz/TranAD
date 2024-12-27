@@ -262,6 +262,7 @@ def backprop(epoch, model, data, dataO, optimizer, scheduler, training = True):
 				elem = window[-1, :, :].view(1, local_bs, feats)
 				z = model(window, elem)
 				l1 = l(z, elem) if not isinstance(z, tuple) else (1 / n) * l(z[0], elem) + (1 - 1/n) * l(z[1], elem)
+				# print(f"l1: {l1}")
 				if isinstance(z, tuple): z = z[1]
 				l1s.append(torch.mean(l1).item())
 				loss = torch.mean(l1)
@@ -270,6 +271,8 @@ def backprop(epoch, model, data, dataO, optimizer, scheduler, training = True):
 				optimizer.step()
 			scheduler.step()
 			tqdm.write(f'Epoch {epoch},\tL1 = {np.mean(l1s)}')
+			if np.mean(l1s)==np.nan:
+				print(f"l1s: {l1s}")
 			return np.mean(l1s), optimizer.param_groups[0]['lr']
 		else:
 			for d, _ in dataloader:
@@ -278,6 +281,8 @@ def backprop(epoch, model, data, dataO, optimizer, scheduler, training = True):
 				z = model(window, elem)
 				if isinstance(z, tuple): z = z[1]
 			loss = l(z, elem)[0]
+			if torch.all(loss == 0):
+				print(f"loss: {loss}")
 			return loss.detach().numpy(), z.detach().numpy()[0]
 	else:
 		y_pred = model(data)
@@ -293,6 +298,11 @@ def backprop(epoch, model, data, dataO, optimizer, scheduler, training = True):
 			return loss.detach().numpy(), y_pred.detach().numpy()
 
 if __name__ == '__main__':
+	from datetime import datetime
+	start = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
+	print(f"start: {start}")
+
 	train_loader, test_loader, labels = load_dataset(args.dataset)
 	if args.model in ['MERLIN']:
 		eval(f'run_{args.model.lower()}(test_loader, labels, args.dataset)')
@@ -306,30 +316,33 @@ if __name__ == '__main__':
 
 	### Training phase
 	if not args.test:
-		print(f'{color.HEADER}Training {args.model} on {args.dataset}{color.ENDC}')
+		# print(f'{color.HEADER}Training {args.model} on {args.dataset}{color.ENDC}')
 		num_epochs = 5; e = epoch + 1; start = time()
 		for e in tqdm(list(range(epoch+1, epoch+num_epochs+1))):
 			lossT, lr = backprop(e, model, trainD, trainO, optimizer, scheduler)
 			accuracy_list.append((lossT, lr))
-		print(color.BOLD+'Training time: '+"{:10.4f}".format(time()-start)+' s'+color.ENDC)
+		# print(color.BOLD+'Training time: '+"{:10.4f}".format(time()-start)+' s'+color.ENDC)
 		save_model(model, optimizer, scheduler, e, accuracy_list)
 		plot_accuracies(accuracy_list, f'{args.model}_{args.dataset}')
-
+	print(f"training phase done")
 	### Testing phase
 	torch.zero_grad = True
 	model.eval()
 	print(f'{color.HEADER}Testing {args.model} on {args.dataset}{color.ENDC}')
 	loss, y_pred = backprop(0, model, testD, testO, optimizer, scheduler, training=False)
-
+	print(f"test phase done")
 	### Plot curves
 	if not args.test:
 		if 'TranAD' in model.name: testO = torch.roll(testO, 1, 0) 
 		plotter(f'{args.model}_{args.dataset}', testO, y_pred, loss, labels)
+	print(f"plotting done")
 
 	### Scores
 	df = pd.DataFrame()
 	lossT, _ = backprop(0, model, trainD, trainO, optimizer, scheduler, training=False)
 	for i in range(loss.shape[1]):
+		if i in [11,23,29,31,32,43,48,50]: continue
+		print(f"i: {i}")
 		lt, l, ls = lossT[:, i], loss[:, i], labels[:, i]
 		result, pred = pot_eval(lt, l, ls); preds.append(pred)
 		df = df.append(result, ignore_index=True)
@@ -340,7 +353,15 @@ if __name__ == '__main__':
 	result, _ = pot_eval(lossTfinal, lossFinal, labelsFinal)
 	result.update(hit_att(loss, labels))
 	result.update(ndcg(loss, labels))
-	print(df)
+	# print(df)
 	pprint(result)
 	# pprint(getresults2(df, result))
 	# beep(4)
+	print(f"scores done")
+
+	end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	print(f"end: {end}")
+	# Convert strings to datetime objects
+	end_dt = datetime.strptime(end, "%Y-%m-%d %H:%M:%S")
+	time = end_dt - start_dt
+	print(f"time: {time}")

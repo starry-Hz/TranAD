@@ -131,12 +131,19 @@ def pot_eval(init_score, score, label, q=1e-5, level=0.02):
     Returns:
         dict: pot result dict
     """
+    # lms表示风险阈值和常量值，lm的第一个值是风险阈值，第二个值是常量值
+    # q:什么是风险阈值，什么是常量值
+    # 
     lms = lm[0]
+    # print('lms:', lms)
     while True:
         try:
-            s = SPOT(q)  # SPOT object
-            s.fit(init_score, score)  # data import
+            s = SPOT(q)  # SPOT object,SPOT对象，q 是风险阈值
+            # print(f"s_142:{s}")
+            s.fit(init_score, score)  # data import,用训练数据（init_score）和测试数据（score）训练模型
+            # print(f"s_144:{s}")
             s.initialize(level=lms, min_extrema=False, verbose=False)  # initialization step
+            # print('lms:', lms)
         except: lms = lms * 0.999
         else: break
     ret = s.run(dynamic=False)  # run

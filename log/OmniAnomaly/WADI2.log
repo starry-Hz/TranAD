@@ -1,0 +1,33 @@
+nohup: ignoring input
+start: 2024-12-26 17:18:48
+[92mCreating new model: OmniAnomaly[0m
+  0%|          | 0/5 [00:00<?, ?it/s]                                       0%|          | 0/5 [01:02<?, ?it/s] 20%|██        | 1/5 [01:02<04:08, 62.06s/it]                                              20%|██        | 1/5 [02:05<04:08, 62.06s/it] 40%|████      | 2/5 [02:05<03:07, 62.62s/it]                                              40%|████      | 2/5 [03:03<03:07, 62.62s/it] 60%|██████    | 3/5 [03:03<02:01, 60.67s/it]                                              60%|██████    | 3/5 [04:01<02:01, 60.67s/it] 80%|████████  | 4/5 [04:01<00:59, 59.77s/it]                                              80%|████████  | 4/5 [05:03<00:59, 59.77s/it]100%|██████████| 5/5 [05:03<00:00, 60.29s/it]100%|██████████| 5/5 [05:03<00:00, 60.60s/it]
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/fromnumeric.py:3441: RuntimeWarning: Mean of empty slice.
+  out=out, **kwargs)
+/home/hz/anaconda3/envs/tranad/lib/python3.7/site-packages/numpy/core/_methods.py:189: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+Epoch 0,	MSE = 0.009334996759630346,	KLD = 3.0426077630289e-05
+Epoch 1,	MSE = 0.009269301905732089,	KLD = 5.222821626382169e-06
+Epoch 2,	MSE = 0.009273813946747277,	KLD = 9.400132321683373e-06
+Epoch 3,	MSE = 0.009481366646461483,	KLD = 7.78821521785594e-06
+Epoch 4,	MSE = 0.009377072100575572,	KLD = 8.33946978123665e-06
+training phase done
+[95mTesting OmniAnomaly on WADI1[0m
+test phase done
+plotting done
+{'FN': 146,
+ 'FP': 3294,
+ 'Hit@100%': nan,
+ 'Hit@150%': nan,
+ 'NDCG@100%': nan,
+ 'NDCG@150%': nan,
+ 'ROC/AUC': 0.8256319040028641,
+ 'TN': 12989,
+ 'TP': 851,
+ 'f1': 0.3309964838130418,
+ 'precision': 0.2053075990221771,
+ 'recall': 0.8535606734848479,
+ 'threshold': 0.10665238375246418}
+scores done
+end: 2024-12-26 17:24:44
+time: 0:05:56
