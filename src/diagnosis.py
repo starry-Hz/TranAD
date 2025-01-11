@@ -1,5 +1,7 @@
 import numpy as np
+# ndcg 用于计算归一化折损累计增益(NDCG)
 from sklearn.metrics import ndcg_score
+# lm 是常量，用于存储阈值
 from src.constants import lm
 
 def hit_att(ascore, labels, ps = [100, 150]):

@@ -341,8 +341,8 @@ if __name__ == '__main__':
 	df = pd.DataFrame()
 	lossT, _ = backprop(0, model, trainD, trainO, optimizer, scheduler, training=False)
 	for i in range(loss.shape[1]):
-		if i in [11,23,29,31,32,43,48,50]: continue
-		print(f"i: {i}")
+		# if i in [11,23,29,31,32,43,48,50]: continue
+		# print(f"i: {i}")
 		lt, l, ls = lossT[:, i], loss[:, i], labels[:, i]
 		result, pred = pot_eval(lt, l, ls); preds.append(pred)
 		df = df.append(result, ignore_index=True)

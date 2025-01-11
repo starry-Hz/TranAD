@@ -18,6 +18,7 @@ lm_d = {
         'HVAC': [(0.97, 1.02), (0.94, 1.05)],
         'els': [(0.35, 1), (0.63, 1.05)],
         'PSM': [(0.5, 1.05), (0.999991, 1.05)],
+        'hydrogen': [(0.55, 1.1), (0.99, 1.05)],
 	}
 # 选择合适的阈值，如果是TranAD模型，选择第二个阈值
 lm = lm_d[args.dataset][1 if 'TranAD' in args.model else 0]
@@ -39,6 +40,7 @@ lr_d = {
 		'MBA': 0.001, 
         'HVAC': 0.0001, 
         'els': 0.0001, 
+        'hydrogen': 0.00001, 
 	}
 # 选择合适的学习率
 lr = lr_d[args.dataset]
@@ -60,6 +62,7 @@ percentiles = {
 		'MBA': (99, 2),
         'HVAC': (80, 5),
         'els': (80, 20),
+        'hydrogen': (80, 20),
 	}
 # percentiles 是一个字典，包含每个数据集的百分位阈值和滑动窗口大小
 percentile_merlin = percentiles[args.dataset][0]
