@@ -249,11 +249,11 @@ def pot_eval(init_score, score, label, q=1e-5, level=0.02):
     # 绘制ROC曲线和计算AUC
     # roc_auc_score = calculate_metric(label, score)
     # print('roc_auc_score:', roc_auc_score)
-    score_plot = np.asarray(score)
-    label_plot = np.asarray(label)
-    pot_plot = np.arange(0, 1.01, 0.01)
-    tpr, fpr = compute_tpr_fpr(score_plot, label_plot, pot_plot)
-    plot_roc_curve(fpr, tpr)
+    # score_plot = np.asarray(score)
+    # label_plot = np.asarray(label)
+    # pot_plot = np.arange(0, 1.01, 0.01)
+    # tpr, fpr = compute_tpr_fpr(score_plot, label_plot, pot_plot)
+    # plot_roc_curve(fpr, tpr)
     #---------------------------------------------------------------------------------------------
     pred, p_latency = adjust_predicts(score, label, pot_th, calc_latency=True)
     # DEBUG - np.save(f'{debug}.npy', np.array(pred))

@@ -3,7 +3,7 @@ from src.folderconstants import *
 
 # Threshold parameters
 lm_d = {
-		'SMD': [(0.99995, 1.04), (0.99995, 1.06)],
+		'SMD': [(0.99995, 1.04), (0.9999, 1.06)],
 		'synthetic': [(0.999, 1), (0.999, 1)],
 		'SWaT': [(0.993, 1), (0.993, 1)],
         'SWaT1': [(0.993, 1), (0.9929, 1)],
@@ -18,29 +18,29 @@ lm_d = {
         'HVAC': [(0.97, 1.02), (0.94, 1.05)],
         'els': [(0.35, 1), (0.63, 1.05)],
         'PSM': [(0.5, 1.05), (0.999991, 1.05)],
-        'hydrogen': [(0.55, 1.1), (0.99, 1.05)],
+        'hydrogen': [(0.82, 1.1), (0.99, 1.05)],
 	}
 # 选择合适的阈值，如果是TranAD模型，选择第二个阈值
 lm = lm_d[args.dataset][1 if 'TranAD' in args.model else 0]
 
 # Hyperparameters
 lr_d = {
-		'SMD': 0.0001, 
+		'SMD': 0.0000061, 
 		'synthetic': 0.0001, 
 		'SWaT': 0.008, 
         'SWaT1': 0.001, 
 		'SMAP': 0.001, 
 		'MSL': 0.002, 
 		'WADI': 0.0001, 
-        'WADI1': 0.0001, 
+        'WADI1': 0.00009, 
         'PSM': 0.001, 
 		'MSDS': 0.001, 
 		'UCR': 0.006, 
 		'NAB': 0.009, 
 		'MBA': 0.001, 
-        'HVAC': 0.0001, 
+        'HVAC': 0.005, 
         'els': 0.0001, 
-        'hydrogen': 0.00001, 
+        'hydrogen': 0.0001, 
 	}
 # 选择合适的学习率
 lr = lr_d[args.dataset]
