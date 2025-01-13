@@ -299,9 +299,11 @@ def backprop(epoch, model, data, dataO, optimizer, scheduler, training = True):
 
 if __name__ == '__main__':
 	from datetime import datetime
+	# import time
 	start = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	start_dt = datetime.strptime(start, "%Y-%m-%d %H:%M:%S")
 	print(f"start: {start}")
+	time_train_start = time()
 
 	train_loader, test_loader, labels = load_dataset(args.dataset)
 	if args.model in ['MERLIN']:
@@ -325,12 +327,15 @@ if __name__ == '__main__':
 		save_model(model, optimizer, scheduler, e, accuracy_list)
 		plot_accuracies(accuracy_list, f'{args.model}_{args.dataset}')
 	print(f"training phase done")
+	time_train_end = time()
+	time_test_start = time()
 	### Testing phase
 	torch.zero_grad = True
 	model.eval()
 	print(f'{color.HEADER}Testing {args.model} on {args.dataset}{color.ENDC}')
 	loss, y_pred = backprop(0, model, testD, testO, optimizer, scheduler, training=False)
 	print(f"test phase done")
+	
 	### Plot curves
 	if not args.test:
 		if 'TranAD' in model.name: testO = torch.roll(testO, 1, 0) 
@@ -358,7 +363,11 @@ if __name__ == '__main__':
 	# pprint(getresults2(df, result))
 	# beep(4)
 	print(f"scores done")
-
+	time_test_end = time()
+	print(f'{color.HEADER}{args.model} {args.dataset}{color.ENDC}')
+	print(f"training time: {time_train_end - time_train_start:.4f}")
+	print(f"testing time: {time_test_end - time_test_start:.4f}")
+	print(f"total time: {time_test_end - time_train_start:.4f}")
 	end = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 	print(f"end: {end}")
 	# Convert strings to datetime objects
